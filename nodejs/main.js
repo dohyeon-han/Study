@@ -1,36 +1,8 @@
 var http = require('http');
 var fs = require('fs');
 var qs = require('querystring');
-
-function listHTML(files){
-  var list = '<ul>';
-  files.forEach(file=>{
-    if(file===`Welcome`) return;
-    list+=`<li><a href="/?id=${file}">${file}</a></li>`
-  })
-  
-  list+='</ul>';
-  return list;
-}
-
-function templateHTML(title,list,data,update,del){
-  return  `
-  <!doctype html>
-  <html>
-  <head>
-    <title>WEB1 - ${title}</title>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <h1><a href="/">WEB</a></h1>
-    <ul>${list}</ul>
-    <a href="/create">create</a>  ${update} ${del}
-    <h2>${title}</h2>
-    <p>${data}<p>
-  </body>
-  </html>
-  `;
-}
+var p = require('path');
+var template = require('./lib/template.js');
 
 var app = http.createServer(function(request,response){
     var _url = request.url;
@@ -52,20 +24,19 @@ var app = http.createServer(function(request,response){
         del = '';
       }
       fs.readdir('data',(err,files)=>{//폴더 읽기
-        var list = listHTML(files);//list변수
-
-        fs.readFile(`data/${id}`, `utf8`, (err,data)=>{//파일 내용 읽기
-          var template = templateHTML(id,list,data,update,del);
+        var list = template.list(files);//list변수
+        var filterd = p.parse(id).base;//상위 디렉토리를 입력해도 base주소만
+        fs.readFile(`data/${filterd}`, `utf8`, (err,data)=>{//파일 내용 읽기
+          var HTML = template.HTML(id,list,data,update,del);
           response.writeHead(200);
-          response.end(template); 
+          response.end(HTML); 
         })
       })
     }
     else if(path==='/create'){
       id = 'create';
       fs.readdir('data',(err,files)=>{//폴더 읽기
-        var list = listHTML(files);//list변수
-
+        var list = template.list(files);//list변수
         var data = `
         <form action="/create_process" method="post">
           <p>
@@ -77,18 +48,18 @@ var app = http.createServer(function(request,response){
           <input type='submit'>
         </form>
         `
-        var template = templateHTML(id,list,data,'','');
+        var HTML = template.HTML(id,list,data,'','');
         response.writeHead(200);
-        response.end(template); 
+        response.end(HTML); 
         
       })
     }
     else if(path===`/update`){//글 수정하기
       fs.readdir('data',(err,files)=>{//폴더 읽기
-        var list = listHTML(files);//list변수
-
-        fs.readFile(`data/${id}`, `utf8`, (err,data)=>{//파일 내용 읽기
-          var template = templateHTML(id,list,`
+        var list = template.list(files);//list변수
+        var filterd = p.parse(id).base;//상위 디렉토리를 입력해도 base주소만
+        fs.readFile(`data/${filterd}`, `utf8`, (err,data)=>{//파일 내용 읽기
+          var HTML = template.HTML(id,list,`
           <form action="/update_process" method="post">
             <input type='hidden' name='id' value=${id}>
             <p>
@@ -101,7 +72,7 @@ var app = http.createServer(function(request,response){
           </form>
           `,'',del);
           response.writeHead(200);
-          response.end(template); 
+          response.end(HTML); 
         })      
       })
     }
@@ -114,8 +85,6 @@ var app = http.createServer(function(request,response){
         var post = qs.parse(body);
         var title = post.title;
         var description = post.description;
-
-        
         if(path==='/update_process'){
           var id = post.id;
           fs.rename(`data/${id}`,`data/${title}`,(error)=>{
