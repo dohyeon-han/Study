@@ -41,4 +41,23 @@
 		<servlet-name>servletEx</servlet-name>
 		<url-pattern>/JSPEx</url-pattern><!-- mapping할 이름 -->
 	</servlet-mapping>
+	
+	
+	
+	<servlet>
+		<servlet-name>servletGIP</servlet-name>
+		<servlet-class>com.getInitParameter.gip</servlet-class>
+		<init-param>
+			<param-name>adminId</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>adminPw</param-name>
+			<param-value>1234</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletGIP</servlet-name>
+		<url-pattern>/GIP</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -20,7 +20,7 @@
 		코딩
 		<input type="checkbox" name="hobby" value="coding">
 		<br> 성별 : man
-		<input type="radio" name="gender" value="man" checked="checked">
+		<input type="radio" name="gender" value="man" checsked="checked">
 		woman
 		<input type="radio" name="gender" value="woman">
 		<br>
