@@ -6,21 +6,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import com.serlvet.dto.BookDTO;
 
 //servlet -> DAO -> DB -> DAO -> DTO -> DAO -> servlet
 public class BookDAO {
 	
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    String id = "c##scott";
-    String pw = "tiger";
+	DataSource dataSource;
+//	String driver = "oracle.jdbc.driver.OracleDriver";
+//	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+//    String id = "c##scott";
+//    String pw = "tiger";
     
 	
     public BookDAO() {//DB연결
 		try {
-			Class.forName(driver);
-		
+			//Class.forName(driver);
+			InitialContext context = new InitialContext();//connection pool 사용
+			dataSource = (DataSource)context.lookup("java:comp/env/jdbc/Oracle18c");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -35,7 +40,8 @@ public class BookDAO {
     	ResultSet rst = null;
     	
     	try {
-    		con = DriverManager.getConnection(url,id,pw);
+    		//con = DriverManager.getConnection(url,id,pw);
+    		con = dataSource.getConnection();
     		String sql = "select * from book";
     		pstmt = con.prepareStatement(sql);
     		rst = pstmt.executeQuery();
