@@ -6,6 +6,8 @@
 	<groupId>spring_test</groupId>
 	<artifactId>test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	
+	<!-- 필요한 모듈 -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -13,7 +15,8 @@
 			<version>4.1.0.RELEASE</version>
 		</dependency>
 	</dependencies>
-
+	
+	<!-- 빌드 명령 -->
 	<build>
 		<plugins>
 			<plugin>
