@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.serlvet.dto.BookDTO;
 import com.servlet.dao.BookDAO;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 //같은 파일에 썼던 기존의 쿼리문을 다른 파일로 옮겨 역할을 구분
 //DAO DB에 접근해 쿼리문 수행
