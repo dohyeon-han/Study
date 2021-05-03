@@ -4,5 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- new를 통해 객체를 생성하지 않아도 됨 -->
+	<!-- bean을 이용해 spring container에 bean 객체 생성, getbean을 통해 가져옴 -->
 	<bean id="tWalk" class="spring_no_eclipse.TransportationWalk"/>	
 </beans>
