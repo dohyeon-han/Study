@@ -4,5 +4,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- new를 통해 객체를 생성하지 않아도 됨 -->
-	<bean id="tWalk" class="test.TransportationWalk"/>	
+	<bean id="walk" class="test.Walk"/>
+	
+	<!-- dependency injection(의존성 주입) -->
+	<bean id="tWalk" class="test.TransportationWalk">
+		<constructor-arg ref="walk"></constructor-arg>
+	</bean>
+	
+	
 </beans>

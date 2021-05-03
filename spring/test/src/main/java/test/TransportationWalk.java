@@ -1,9 +1,12 @@
 package test;
 
 public class TransportationWalk {
-
-	public void move() {
-		System.out.println("이동");
+	
+	private Walk w;
+	public TransportationWalk(Walk w) {
+		this.w = w;
 	}
-
+	public void move() {
+		w.print();
+	}
 }
