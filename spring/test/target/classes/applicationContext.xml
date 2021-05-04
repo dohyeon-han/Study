@@ -9,6 +9,8 @@
 	<!-- dependency injection(의존성 주입) -->
 	<bean id="tWalk" class="test.TransportationWalk">
 		<constructor-arg ref="walk"></constructor-arg>
+		<property name="start" value="Seoul"></property>
+		<property name="end" value="Busan"></property>
 	</bean>
 	
 	

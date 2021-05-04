@@ -16,7 +16,8 @@ public class Main {
 		ctx.getBean("tWalk", TransportationWalk.class);
 		
 		transportationWalk.move();
-		
+		System.out.println(transportationWalk.getStart());
+		System.out.println(transportationWalk.getEnd());
 		ctx.close();
 	}
 
