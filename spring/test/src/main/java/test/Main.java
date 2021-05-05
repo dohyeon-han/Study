@@ -13,11 +13,21 @@ public class Main {
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationContext.xml");
 		//컨테이너의 bean
 		TransportationWalk transportationWalk = 
-		ctx.getBean("tWalk", TransportationWalk.class);
+				ctx.getBean("tWalk", TransportationWalk.class);
+		
+		TransportationWalk transportationWalk2 = 
+				ctx.getBean("tWalk", TransportationWalk.class);
 		
 		transportationWalk.move();
 		System.out.println(transportationWalk.getStart());
 		System.out.println(transportationWalk.getEnd());
+		
+		if(transportationWalk==transportationWalk2) {
+			System.out.println("Same");
+		}
+		else {
+			System.out.println("Different");
+		}
 		ctx.close();
 	}
 

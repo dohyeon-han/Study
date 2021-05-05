@@ -3,15 +3,19 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	<!-- xml파일 분리 후 import -->
+	<import resource="classpath:applicationContext2.xml"/>
+	
 	<!-- new를 통해 객체를 생성하지 않아도 됨 -->
-	<bean id="walk" class="test.Walk"/>
+	<!-- 객체는 한 번만 생성된다. -->
+	<!-- <bean id="walk" class="test.Walk"/> -->
 	
 	<!-- dependency injection(의존성 주입) -->
-	<bean id="tWalk" class="test.TransportationWalk">
+	<!-- <bean id="tWalk" class="test.TransportationWalk"> scope="prototype" 을 사용하면 getBean을 할 때마다 객체체가 새로 생성
 		<constructor-arg ref="walk"></constructor-arg>
 		<property name="start" value="Seoul"></property>
 		<property name="end" value="Busan"></property>
-	</bean>
+	</bean> -->
 	
 	
 </beans>

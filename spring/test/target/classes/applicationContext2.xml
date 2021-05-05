@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="walk" class="test.Walk"/>
+	
+	
+	<bean id="tWalk" class="test.TransportationWalk" scope="prototype"> <!-- defult는 하나의 객체만 생성 -->
+		<constructor-arg ref="walk"></constructor-arg>
+		<property name="start" value="Seoul"></property>
+		<property name="end" value="Busan"></property>
+	</bean>
+	
+	
+</beans>
